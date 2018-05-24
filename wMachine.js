@@ -1,14 +1,15 @@
 //node wMachine.js
-var Promise = require('promise');
-var sleep = require('system-sleep');
+var Promise = require('promise');	//npm install promise
+var sleep = require('system-sleep');	//npm install system-sleep
+
 var mode = 'idle';
 
-var fill = function(){		
+var fill = function(){			//Moving from idle to filling water
 	var promise = new Promise(function(resolve, reject){
 		if(mode == 'idle'){
 			console.log('Starting program');
 			console.log('Idle -> filling water');
-			sleep(5*1000);
+			sleep(5*1000);	//Halt the execution for 5 seconds
 			mode = 'filling';
 			resolve(mode);
 		}
@@ -21,7 +22,7 @@ var fill = function(){
 	return promise;
 };
 
-var wash = function(){		
+var wash = function(){			//Moving from filling water to washing
 	var promise = new Promise(function(resolve, reject){
 		if(mode == 'filling'){
 			console.log('Filling water -> washing');
@@ -38,7 +39,7 @@ var wash = function(){
 	return promise;
 };
 
-var rinse = function(){		
+var rinse = function(){			//Moving from washing to rinsing
 	var promise = new Promise(function(resolve, reject){
 		if(mode == 'washing'){
 			console.log('Washing -> rinsing');
@@ -55,7 +56,7 @@ var rinse = function(){
 	return promise;
 };
 
-var spin = function(){		
+var spin = function(){			//Moving from rinsing to spinning
 	var promise = new Promise(function(resolve, reject){
 		if(mode == 'rinsing'){
 			console.log('Rinsing -> spinning');
@@ -72,7 +73,7 @@ var spin = function(){
 	return promise;
 };
 
-var idle = function(){		
+var idle = function(){			//Resetting from spinning to idle
 	var promise = new Promise(function(resolve, reject){
 		if(mode == 'spinning'){
 			console.log('Spinning -> idle');
@@ -90,7 +91,7 @@ var idle = function(){
 	return promise;
 };
 
-fill()
+fill()					//Call the cycle to use the machine
 	.then(wash)
 	.then(rinse)
 	.then(spin)
